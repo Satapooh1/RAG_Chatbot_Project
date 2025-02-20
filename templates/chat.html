@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body>
+    <h1>{{ chat_title }}</h1>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            {% for message in messages %}
+            <div class="message {{ 'user-message' if message.user else 'bot-message' }}">
+                {{ message.text }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST" class="input-box">
+            <input type="text" id="query" name="query" placeholder="พิมพ์ข้อความ..." required>
+            <button type="submit">ส่ง</button>
+            <button type="submit" name="reset" value="1" style="background-color: red; color: white;">รีเซ็ต</button>
+        </form>
+    </div>
+    <div style="text-align: center; margin-top: 15px;">
+        <a href="/" style="text-decoration: none; color: white; background-color: #4CAF50; padding: 10px 20px; border-radius: 5px;">กลับหน้าแรก</a>
+    </div>
+</body>
+
+</html>
