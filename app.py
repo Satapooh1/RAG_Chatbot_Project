@@ -41,33 +41,64 @@ docs_sea = loader_sea.load()
 docs_sea_spt = text_splitter.split_documents(docs_sea)
 db_sea = FAISS.from_documents(docs_sea_spt, embedding)
 
-custom_prompt = PromptTemplate(
+custom_prompt_sea = PromptTemplate(
     input_variables=["context", "question"],
     template="""
-    คุณคือผู้ช่วยที่ตอบคำถามโดยอ้างอิงจากข้อมูลที่ให้เท่านั้น
-    หากไม่สามารถหาคำตอบจากข้อมูลได้ ให้ตอบว่า "ขออภัย ไม่พบข้อมูลที่เกี่ยวข้องกับคำถามนี้"
+    คุณคือผู้ช่วยที่ตอบคำถามเกี่ยวกับมหาสมุทรเท่านั้น
+    หากคำถามเกี่ยวกับอวกาศ ระบบนี้ไม่สามารถให้ข้อมูลได้
+    กรุณาไปที่ Solar System Chatbot แทน
 
     ข้อมูลอ้างอิง:
     {context}
 
-    คำถาม:
+    คำถามจากผู้ใช้:
     {question}
-    คำตอบ:
+
+    หากคำถามเกี่ยวกับอวกาศ:
+    "ขออภัย ฉันเป็นแชทบอทสำหรับข้อมูลเกี่ยวกับมหาสมุทรเท่านั้น 
+    หากคุณต้องการข้อมูลเกี่ยวกับอวกาศ กรุณาใช้ Solar System Chatbot แทน"
+
+    หากคำถามเกี่ยวข้องกับมหาสมุทร:
+    คำตอบของคุณ:
     """
 )
+
+custom_prompt_solar = PromptTemplate(
+    input_variables=["context", "question"],
+    template="""
+    คุณคือผู้ช่วยที่ตอบคำถามเกี่ยวกับอวกาศเท่านั้น
+    หากคำถามเกี่ยวกับมหาสมุทร ระบบนี้ไม่สามารถให้ข้อมูลได้
+    กรุณาไปที่ Sea Chatbot แทน
+
+    ข้อมูลอ้างอิง:
+    {context}
+
+    คำถามจากผู้ใช้:
+    {question}
+
+    หากคำถามเกี่ยวกับมหาสมุทร:
+    "ขออภัย ฉันเป็นแชทบอทสำหรับข้อมูลเกี่ยวกับอวกาศเท่านั้น 
+    หากคุณต้องการข้อมูลเกี่ยวกับมหาสมุทร กรุณาใช้ Sea Chatbot แทน"
+
+    หากคำถามเกี่ยวข้องกับอวกาศ:
+    คำตอบของคุณ:
+    """
+)
+
+
 
 qa_chain_solar = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
     retriever=db_solar.as_retriever(),
-    chain_type_kwargs={"prompt": custom_prompt}
+    chain_type_kwargs={"prompt": custom_prompt_solar}
 )
 
 qa_chain_sea = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
     retriever=db_sea.as_retriever(),
-    chain_type_kwargs={"prompt": custom_prompt}
+    chain_type_kwargs={"prompt": custom_prompt_sea}
 )
 
 
