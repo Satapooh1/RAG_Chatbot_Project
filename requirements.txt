@@ -5,3 +5,4 @@ langchain-together
 faiss-cpu
 python-dotenv
 sentence-transformers
+flask-session
