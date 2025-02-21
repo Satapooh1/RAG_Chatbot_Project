@@ -6,3 +6,4 @@ faiss-cpu
 python-dotenv
 sentence-transformers
 flask-session
+langchain-huggingface
