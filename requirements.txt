@@ -4,3 +4,4 @@ langchain-community
 langchain-together
 faiss-cpu
 python-dotenv
+sentence-transformers
