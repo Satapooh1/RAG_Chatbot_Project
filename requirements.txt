@@ -7,3 +7,4 @@ python-dotenv
 sentence-transformers
 flask-session
 langchain-huggingface
+gunicorn
