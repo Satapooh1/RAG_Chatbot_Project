@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 from flask_session import Session
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
