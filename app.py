@@ -76,11 +76,7 @@ qa_chain_sea = RetrievalQA.from_chain_type(
 def index():
     return render_template('index.html')
 
-@app.route('/check_memory')
-def check_memory():
-    process = psutil.Process()
-    mem_info = process.memory_info()
-    return f"ใช้ RAM: {mem_info.rss / (1024 * 1024):.2f} MB"
+
 
 @app.route('/solar_chat', methods=['GET', 'POST'])
 def solar_chat():
