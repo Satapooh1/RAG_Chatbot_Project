@@ -7,7 +7,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain_together import ChatTogether
 from langchain.prompts import PromptTemplate
-import psutil
+
 import os
 from dotenv import load_dotenv
 
